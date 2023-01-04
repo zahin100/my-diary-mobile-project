@@ -1,38 +1,39 @@
 package com.example.mobileproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.example.mobileproject.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
     TabLayout tabs;
-    ViewPager viewPager;
-    ActivityMainBinding binding;
+    ViewPager2 viewPager;
+    FragmentAdapter fragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
+        tabs = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
 
         //Set and define the tabs
-        //SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
-          //      getSupportFragmentManager(), tabs.getTabCount());
 
-        //viewPager = binding.viewPager;
-        //viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+        fragmentAdapter = new FragmentAdapter(this);
+        viewPager.setAdapter(fragmentAdapter);
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -51,43 +52,48 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter{
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabs.getTabAt(position).select();
+            }
+        });
 
-        private final Context context;
-        private int totalTabs;
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle.syncState();
 
-        public SectionsPagerAdapter(@NonNull FragmentManager fm, Context context) {
-            super(fm);
-            this.context = context;
-        }
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        public SectionsPagerAdapter(@NonNull FragmentManager fm, int behavior, Context context) {
-            super(fm, behavior);
-            this.context = context;
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.navigation_menu);
 
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.nav_main_activity:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
 
-            switch (position)
-            {
-                case 0:
-                    NotesFragment notesFragment = new NotesFragment();
-                    return notesFragment;
-                case 1:
-                    ProfileFragment profileFragment = new ProfileFragment();
-                    return profileFragment;
-                default: return null;
+                    default:
+                        return false;
+                }
+
             }
 
-        }
+        });
+    }
 
-        @Override
-        public int getCount() {
-            return totalTabs;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

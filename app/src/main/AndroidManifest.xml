@@ -16,15 +16,6 @@
         android:theme="@style/Theme.MobileProject"
         tools:targetApi="31">
         <activity
-            android:name=".TabHomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_tab_home"
-            android:theme="@style/Theme.MobileProject.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".CreateProfile"
             android:exported="false">
             <meta-data
