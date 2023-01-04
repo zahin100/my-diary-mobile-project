@@ -1,19 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:id="@+id/profileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/profile"
-        style="@style/PurpleText"
-        android:layout_width="wrap_content"
+        android:id="@+id/idmyProfile"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="My Profile"
         android:fontFamily="@font/poppinsbold"
-        android:text="Profile"
-        android:textSize="30sp" />
+        android:textAlignment="center"
+        android:textColor="#101D6B"
+        android:textSize="40sp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="170dp">
+
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="First Name:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/firstName"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="220dp">
+
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Last Name:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/lastName"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="270dp">
+
+      />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="No Phone:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/noPhone"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="310dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="320dp">
+
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Birth Date:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/birthDate"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="360dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="370dp">
+
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Address:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/address"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="420dp">
+
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Gender:"
+            android:textSize="17sp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:id="@+id/gender"
+            style="@style/PurpleText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#340691"
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edtProfilebtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:background="@color/blue"
+        android:layout_marginRight="130dp"
+        android:layout_marginLeft="130dp"
+        android:text="Edit Profile"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsmedium"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="540dp"
+        android:background="@color/blue"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:text="Change Password"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppinsmedium"
+        android:textAllCaps="false"/>
+
+
+
+
+
+</RelativeLayout>

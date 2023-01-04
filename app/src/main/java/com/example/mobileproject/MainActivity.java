@@ -79,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         return true;
+                    case R.id.nav_camera_activity:
+                        intent = new Intent(getApplicationContext(), ActivityCamera.class);
+                        startActivity(intent);
+                        return true;
 
                     default:
                         return false;
