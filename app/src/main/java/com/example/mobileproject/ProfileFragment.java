@@ -9,6 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +35,7 @@ import android.widget.Button;
 public class ProfileFragment extends Fragment {
 
     Button buttonProfile;
+    TextView firstName, lastName, noPhone, birthDate, Address, Gender;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +84,14 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         buttonProfile = v.findViewById(R.id.edtProfilebtn);
+
+        firstName = v.findViewById(R.id.firstName);
+        lastName = v.findViewById(R.id.lastName);
+        noPhone = v.findViewById(R.id.noPhone);
+        birthDate = v.findViewById(R.id.birthDate);
+        Address = v.findViewById(R.id.address);
+        Gender = v.findViewById(R.id.gender);
+
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +100,68 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        retrieveData();
+
         return v;
+    }
+
+    public void retrieveData(){
+
+        String url = "http://192.168.8.122/MobileProject/getDataProfile.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("profile");
+
+                    if(success.equals("1")){
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject obj = jsonArray.getJSONObject(i);
+
+                            String firstname = obj.getString("FirstName");
+                            String lastname = obj.getString("LastName");
+                            String phonenum = obj.getString("PhoneNum");
+                            String birthdate = obj.getString("Birthdate");
+                            String address = obj.getString("Address");
+                            String gender = obj.getString("Gender");
+
+                            firstName.append(firstname);
+                            lastName.append(lastname);
+                            noPhone.append(phonenum);
+                            birthDate.append(birthdate);
+                            Address.append(address);
+                            Gender.append(gender);
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                return null;
+
+            }
+
+        };
+
+
+
+        requestQueue.add(request);
     }
 }

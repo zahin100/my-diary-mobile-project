@@ -7,11 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         tabs = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
 
@@ -81,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.nav_camera_activity:
                         intent = new Intent(getApplicationContext(), ActivityCamera.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_calendar_activity:
+                        intent = new Intent(getApplicationContext(), ActivityCalendar.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_maps_activity:
+                        intent = new Intent(getApplicationContext(), ActivityMaps.class);
                         startActivity(intent);
                         return true;
 

@@ -41,7 +41,7 @@
             android:ems="10"
             android:layout_marginTop="10dp"
             android:hint="LastName"
-            android:inputType="textPassword" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/edtPhone"

@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,22 +59,31 @@ public class Login extends AppCompatActivity {
 
                 try {
 
+
                     Log.e("anyText",response);
+                    //Toast.makeText(getApplicationContext(), "Getting some respond here", Toast.LENGTH_SHORT).show();
+                    JSONArray jsonArray = new JSONArray(response);
 
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("respond");
-                    Log.e("anyText",response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
 
-                    if(success.equals("Successfully Login")){
+                        String userName = username.getText().toString();
+                        String passWord = password.getText().toString();
 
-                        Toast.makeText(getApplicationContext(), "Respond from server: " +
-                                jsonObject.getString("respond"), Toast.LENGTH_SHORT).show();
+                        String username = obj.getString("Username");
+                        String password = obj.getString("Password");
+                        String id = obj.getString("ID");
+                        String email = obj.getString("Email");
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-
+                        if(userName.equals(username) && passWord.equals(password)){
+                            Toast.makeText(getApplicationContext(),"Successfully Login!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }else if(userName.equals("") && passWord.equals(""))
+                            Toast.makeText(getApplicationContext(),"Wrong Username or Password", Toast.LENGTH_SHORT).show();
 
                     }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

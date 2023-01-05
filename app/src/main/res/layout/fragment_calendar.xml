@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarFragment">
+
+    <!-- Add TextView to display the date -->
+
+    <!-- Add CalendarView to display the Calendar -->
+    <TextView
+        android:id="@+id/date_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Calendar"
+        android:textAlignment="center"
+        android:textColor="#101D6B"
+        android:textSize="35sp" />
+
+    <CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:background="@color/blue"
+        android:dateTextAppearance="@style/WhiteText"
+        android:weekDayTextAppearance="@style/WhiteText"></CalendarView>
+
+</RelativeLayout>

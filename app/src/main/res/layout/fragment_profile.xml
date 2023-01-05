@@ -10,14 +10,14 @@
         android:id="@+id/idmyProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="My Profile"
         android:fontFamily="@font/poppinsbold"
         android:textAlignment="center"
         android:textColor="#101D6B"
-        android:textSize="40sp" />
+        android:textSize="35sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +25,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="170dp">
-
+        android:layout_marginTop="130dp">
 
         <TextView
             android:layout_width="120dp"
@@ -52,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="170dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -62,7 +61,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="220dp">
+        android:layout_marginTop="180dp">
 
 
         <TextView
@@ -89,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="220dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -100,7 +99,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="270dp">
+        android:layout_marginTop="230dp">
 
       />
 
@@ -128,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="270dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -138,7 +137,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="320dp">
+        android:layout_marginTop="280dp">
 
 
         <TextView
@@ -165,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="320dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -175,7 +174,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="370dp">
+        android:layout_marginTop="330dp">
 
 
         <TextView
@@ -202,7 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="370dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -213,7 +212,7 @@
         android:orientation="horizontal"
         android:paddingLeft="30dp"
         android:paddingRight="15dp"
-        android:layout_marginTop="420dp">
+        android:layout_marginTop="380dp">
 
 
         <TextView
@@ -240,7 +239,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#340691"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="420dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
 
@@ -250,7 +249,7 @@
         android:id="@+id/edtProfilebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="440dp"
         android:background="@color/blue"
         android:layout_marginRight="130dp"
         android:layout_marginLeft="130dp"
@@ -263,7 +262,7 @@
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="500dp"
         android:background="@color/blue"
         android:layout_marginRight="100dp"
         android:layout_marginLeft="100dp"
