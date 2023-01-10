@@ -3,62 +3,120 @@ package com.example.mobileproject;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NotesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class NotesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    List<NoteClass> noteClasses;
+    RecyclerView recyclerView;
+    View v;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public NotesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NotesFragment newInstance(String param1, String param2) {
-        NotesFragment fragment = new NotesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false);
+        v = inflater.inflate(R.layout.fragment_notes, container, false);
+
+        recyclerView = v.findViewById(R.id.recylcerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        noteClasses = new ArrayList<>();
+
+        retrieveData();
+
+
+        return v;
+    }
+
+    public void retrieveData() {
+
+        String url = "http://192.168.8.122/loginregister/getUpcomingData.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    Log.e("anyText", response);
+                    //converting the string to json array object
+                    JSONArray array = new JSONArray(response);
+
+                    //traversing through all the object
+                    for (int i = 0; i < array.length(); i++) {
+
+                        //getting product object from json array
+                        JSONObject note = array.getJSONObject(i);
+
+                        //adding the product to product list
+                        noteClasses.add(new NoteClass(
+
+                                note.getString("Starting_Date"),
+                                note.getString("End_Date")
+
+                        ));
+                    }
+
+                    //creating adapter object and setting it to recyclerview
+                    NoteAdapter adapter = new NoteAdapter(getContext(), noteClasses);
+                    recyclerView.setAdapter(adapter);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+                //username = User.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap<>();
+                //params.put("Customer_Username", username);
+
+                return params;
+
+            }
+
+        };
+
+        requestQueue.add(request);
+
     }
 }
