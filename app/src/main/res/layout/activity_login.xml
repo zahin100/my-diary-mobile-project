@@ -58,4 +58,15 @@
         android:text="Login"
         android:textAllCaps="false" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/account"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/idBtnLogin"
+        android:textStyle="bold"
+        android:textColor="#30D5C8"
+        android:text="Create Account"/>
+
 </RelativeLayout>

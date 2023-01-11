@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +29,7 @@ public class AccountRegistration extends AppCompatActivity {
 
     EditText username, password, confirmPassword, email;
     Button buttonSignup;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,15 @@ public class AccountRegistration extends AppCompatActivity {
         confirmPassword = findViewById(R.id.idEdtConfirmPassword);
         email = findViewById(R.id.idEdtEmail);
         buttonSignup = findViewById(R.id.idBtnSignUp);
+        textView = findViewById(R.id.login);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
 
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +70,7 @@ public class AccountRegistration extends AppCompatActivity {
 
                 try {
 
+                    Log.e("anyText",response);
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("respond");
 
@@ -80,7 +93,7 @@ public class AccountRegistration extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AccountRegistration.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }) {

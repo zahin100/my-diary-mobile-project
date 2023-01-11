@@ -5,21 +5,24 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="371dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/background"
         android:id="@+id/date"
-        />
+        android:layout_width="371dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:background="@drawable/background" />
 
     <TextView
-        android:layout_width="371dp"
         android:id="@+id/note"
+        android:layout_width="371dp"
         android:layout_height="126dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/background"
+        android:textSize="15sp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="65dp"
+        android:textAlignment="center"
+        android:background="@drawable/background"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="33dp" />
 

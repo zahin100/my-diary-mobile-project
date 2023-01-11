@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder>{
@@ -16,7 +18,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private Context ctx;
     private List<NoteClass> noteList;
 
-    public NoteAdapter(Context context, List<NoteClass> noteClasses) {
+    public NoteAdapter(Context ctx, List<NoteClass> noteClasses) {
         this.ctx = ctx;
         this.noteList = noteClasses;
     }
@@ -34,7 +36,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteAdapter.NoteViewHolder holder, int position) {
 
         NoteClass noteClass = noteList.get(position);
-
         holder.note.setText(noteClass.getNote());
         holder.date.setText(noteClass.getDate());
 

@@ -82,6 +82,18 @@
         android:text="Sign Up"
         android:textAllCaps="false" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/login"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textColor="#30D5C8"
+        android:layout_below="@id/idBtnSignUp"
+        />
+
 
 
 </RelativeLayout>

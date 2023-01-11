@@ -3,6 +3,7 @@ package com.example.mobileproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -140,6 +141,9 @@ public class CreateProfile extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), "Respond from server: " +
                                 jsonObject.getString("respond"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
 
 
                     }
@@ -174,9 +178,10 @@ public class CreateProfile extends AppCompatActivity {
                 else if(binding.rbFemale.isChecked())
                     gender = binding.rbFemale.getText().toString();
 
-
+                String username = NoteClass.getInstance().getUsername();
                 Map<String, String> params = new HashMap< >();
                 params.put("selectFn", "fnCreateProfile");
+                params.put("username", username);
                 params.put("firstName", firstName);
                 params.put("lastName", lastName);
                 params.put("phone", phone);

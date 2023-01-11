@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CreateProfile.class);
                 startActivity(intent);
+
             }
         });
 
@@ -115,11 +117,11 @@ public class ProfileFragment extends Fragment {
 
                 try{
 
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("profile");
+                    Log.e("anyText",response);
 
-                    if(success.equals("1")){
+                    //converting the string to json array object
+                    JSONArray jsonArray = new JSONArray(response);
+
                         for (int i = 0; i < jsonArray.length(); i++){
                             JSONObject obj = jsonArray.getJSONObject(i);
 
@@ -138,7 +140,7 @@ public class ProfileFragment extends Fragment {
                             Gender.append(gender);
 
                         }
-                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -154,7 +156,12 @@ public class ProfileFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                return null;
+                String username = NoteClass.getInstance().getUsername();
+
+                Map<String, String> params = new HashMap<>();
+                params.put("Customer_Username", username);
+
+                return params;
 
             }
 

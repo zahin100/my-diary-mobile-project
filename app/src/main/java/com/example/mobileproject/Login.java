@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity {
 
     EditText username, password;
     Button buttonLogin;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,16 @@ public class Login extends AppCompatActivity {
         username = findViewById(R.id.idEdtUserName);
         password = findViewById(R.id.idEdtPassword);
         buttonLogin = findViewById(R.id.idBtnLogin);
+        textView = findViewById(R.id.account);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AccountRegistration.class);
+                startActivity(intent);
+            }
+        });
+
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +82,8 @@ public class Login extends AppCompatActivity {
                         String userName = username.getText().toString();
                         String passWord = password.getText().toString();
 
+                        NoteClass.getInstance().setUsername(userName);
+
                         String username = obj.getString("Username");
                         String password = obj.getString("Password");
                         String id = obj.getString("ID");
@@ -94,7 +108,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }) {

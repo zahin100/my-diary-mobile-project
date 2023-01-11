@@ -1,5 +1,7 @@
 package com.example.mobileproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,9 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -96,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), ActivityMaps.class);
                         startActivity(intent);
                         return true;
+                    case R.id.nav_logout:
+                        signOut();
+                        return true;
 
                     default:
                         return false;
@@ -105,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    private void signOut() {
+
+        Toast.makeText(getApplicationContext(), "Successfully log out!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
