@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
 
     private void fnAddToREST() {
 
-        String strURL = "http://192.168.8.122/MobileProject/Database.php";
+        String strURL = "http://192.168.1.115/MobileProject/Database.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, strURL, new Response.Listener<String>() {
             @Override
@@ -72,31 +72,41 @@ public class Login extends AppCompatActivity {
                 try {
 
 
+                    //Toast.makeText(getApplicationContext(), "Getting some respond here" , Toast.LENGTH_SHORT).show();
                     Log.e("anyText",response);
-                    //Toast.makeText(getApplicationContext(), "Getting some respond here", Toast.LENGTH_SHORT).show();
-                    JSONArray jsonArray = new JSONArray(response);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject obj = jsonArray.getJSONObject(i);
-
-                        String userName = username.getText().toString();
-                        String passWord = password.getText().toString();
-
-                        NoteClass.getInstance().setUsername(userName);
-
-                        String username = obj.getString("Username");
-                        String password = obj.getString("Password");
-                        String id = obj.getString("ID");
-                        String email = obj.getString("Email");
-
-                        if(userName.equals(username) && passWord.equals(password)){
-                            Toast.makeText(getApplicationContext(),"Successfully Login!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                        }else if(userName.equals("") && passWord.equals(""))
-                            Toast.makeText(getApplicationContext(),"Wrong Username or Password", Toast.LENGTH_SHORT).show();
-
+                    if (response.equals("Username does not exist in Database"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Username does not exist!", Toast.LENGTH_SHORT).show();
+                        username.setText("");
+                        password.setText("");
                     }
+                    else{
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject obj = jsonArray.getJSONObject(i);
+
+                            String userName = username.getText().toString();
+                            String passWord = password.getText().toString();
+
+                            NoteClass.getInstance().setUsername(userName);
+
+                            String username = obj.getString("Username");
+                            String password = obj.getString("Password");
+                            String id = obj.getString("ID");
+                            String email = obj.getString("Email");
+
+                            if(userName.equals(username) && passWord.equals(password)){
+                                Toast.makeText(getApplicationContext(),"Successfully Login!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }else if(userName != username || passWord != password)
+                                Toast.makeText(getApplicationContext(),"Incorrect Password", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+
 
 
                 } catch (JSONException e) {
@@ -108,7 +118,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }) {

@@ -12,6 +12,11 @@
         android:title="Camera" />
 
     <item
+        android:id="@+id/nav_today_activity"
+        android:icon="@drawable/book_literature_icon"
+        android:title="Today's Activity" />
+
+    <item
         android:id="@+id/nav_calendar_activity"
         android:icon="@drawable/ic_baseline_calendar_month_24"
         android:title="Calendar" />

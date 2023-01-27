@@ -10,4 +10,5 @@
     <string name="search">Searching</string>
     <string name="googleAPI">AIzaSyAzIAXPaHjNyrPHgN64Lze-VH--Qdc9Jc0</string>
     <string name="loginhere">Login</string>
+    <string name="btnGetTodayActivity">GET ACTIVITY FOR TODAY!</string>
 </resources>

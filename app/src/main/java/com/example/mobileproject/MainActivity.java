@@ -1,7 +1,5 @@
 package com.example.mobileproject;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -91,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.nav_camera_activity:
                         intent = new Intent(getApplicationContext(), ActivityCamera.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_today_activity:
+                        intent = new Intent(getApplicationContext(), ActivityToday.class);
                         startActivity(intent);
                         return true;
                     case R.id.nav_calendar_activity:

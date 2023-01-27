@@ -1,12 +1,16 @@
 package com.example.mobileproject;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mobileproject.databinding.ActivityCreateProfileBinding;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +36,10 @@ public class CreateProfile extends AppCompatActivity {
 
     DatePickerDialog datePicker;
     ActivityCreateProfileBinding binding;
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
 
     @Override
@@ -73,6 +82,51 @@ public class CreateProfile extends AppCompatActivity {
         });
 
 
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle.syncState();
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.navigation_menu);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.nav_main_activity:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_camera_activity:
+                        intent = new Intent(getApplicationContext(), ActivityCamera.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_today_activity:
+                        intent = new Intent(getApplicationContext(), ActivityToday.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_calendar_activity:
+                        intent = new Intent(getApplicationContext(), ActivityCalendar.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_maps_activity:
+                        intent = new Intent(getApplicationContext(), ActivityMaps.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_logout:
+                        signOut();
+                        return true;
+
+                    default:
+                        return false;
+                }
+
+            }
+
+        });
 
     }
 
@@ -126,7 +180,7 @@ public class CreateProfile extends AppCompatActivity {
 
     private void fnAddToREST() {
 
-        String strURL = "http://192.168.8.122/MobileProject/Database.php";
+        String strURL = "http://192.168.1.115/MobileProject/Database.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, strURL, new Response.Listener<String>() {
             @Override
@@ -195,5 +249,21 @@ public class CreateProfile extends AppCompatActivity {
 
         };
         requestQueue.add(stringRequest);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void signOut() {
+
+        Toast.makeText(getApplicationContext(), "Successfully log out!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+        startActivity(intent);
     }
 }

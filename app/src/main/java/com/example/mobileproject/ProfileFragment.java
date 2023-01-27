@@ -109,7 +109,7 @@ public class ProfileFragment extends Fragment {
 
     public void retrieveData(){
 
-        String url = "http://192.168.8.122/MobileProject/getDataProfile.php";
+        String url = "http://192.168.1.115/MobileProject/getDataProfile.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +63,7 @@ public class AccountRegistration extends AppCompatActivity {
 
     private void fnAddToREST() {
 
-        String strURL = "http://192.168.8.122/MobileProject/Database.php";
+        String strURL = "http://192.168.1.115/MobileProject/Database.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, strURL, new Response.Listener<String>() {
             @Override
@@ -71,18 +72,47 @@ public class AccountRegistration extends AppCompatActivity {
                 try {
 
                     Log.e("anyText",response);
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("respond");
 
-                    if(success.equals("Sign Up Success!")){
+                    if (response.equals("Error! Username has been taken in Database"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Error! Username has been taken in Database! Use other username.", Toast.LENGTH_SHORT).show();
+                        username.setText("");
+                        password.setText("");
+                        confirmPassword.setText("");
+                    }
 
-                        Toast.makeText(getApplicationContext(), "Respond from server: " +
-                                jsonObject.getString("respond"), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                        startActivity(intent);
+                    else if(response.equals("Password Do not Match!"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Error! Password Do not Match!", Toast.LENGTH_SHORT).show();
+                        password.setText("");
+                        confirmPassword.setText("");
+                    }
 
+                    else if(response.equals("Error: Invalid email address format"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Error: Invalid email address format", Toast.LENGTH_SHORT).show();
+                        email.setText("");
+                    }
+
+                    else{
+
+                        JSONObject jsonObject = new JSONObject(response);
+                        String success = jsonObject.getString("respond");
+
+                        if(success.equals("Sign Up Success!")){
+
+                            Toast.makeText(getApplicationContext(), "Respond from server: " +
+                                    jsonObject.getString("respond"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            startActivity(intent);
+
+
+                        }
 
                     }
+
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -110,6 +140,7 @@ public class AccountRegistration extends AppCompatActivity {
                 params.put("selectFn", "fnSignUp");
                 params.put("Username", userName);
                 params.put("Password", passWord);
+                params.put("ConfirmPassword", confirmPass);
                 params.put("Email", eMail);
 
                 return params;

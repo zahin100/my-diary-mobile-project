@@ -1,44 +1,42 @@
 package com.example.mobileproject;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.mobileproject.databinding.ActivityCameraBinding;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.mobileproject.databinding.ActivityTodayBinding;
 import com.google.android.material.navigation.NavigationView;
 
-public class ActivityCamera extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class ActivityToday extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
-    ActivityCameraBinding binding;
-    ActivityResultLauncher<Intent> launcher;
 
+    private ActivityTodayBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
-
-        binding = ActivityCameraBinding.inflate(getLayoutInflater());
+        binding = ActivityTodayBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        binding.btnTakePic.setOnClickListener(view->launcher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));
-        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::fnAfterCam);
-
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
@@ -85,20 +83,50 @@ public class ActivityCamera extends AppCompatActivity {
             }
 
         });
+
+
+        binding.btnGetWordDefinition.setOnClickListener(this:: fnGetWordDefinition);
+        binding.lblTodayActivity.setTextColor(Color.parseColor("#000000"));
     }
 
-    private void fnAfterCam(ActivityResult result){
-        Bitmap bp = (Bitmap) result.getData().getExtras().get("data");
-        binding.imgVwPic.setImageBitmap(bp);
 
-    }
+    private void fnGetWordDefinition(View view){
 
-    public void fnTakePic(View vw)
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        launcher.launch(intent);
-    }
+            String strURL = "https://www.boredapi.com/api/activity";
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, strURL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(response);
+                        binding.txtActivity.setText("  Activity: " + jsonObject.getString("activity"));
+                        binding.txtType.setText("  Type: " + jsonObject.getString("type"));
+                        binding.txtParticipants.setText("  Participants: " + jsonObject.getString("participants"));
+                        binding.txtPrice.setText("  Price: RM" + jsonObject.getString("price"));
 
+
+                        binding.txtActivity.setTextColor(Color.parseColor("#000000"));
+                        binding.txtType.setTextColor(Color.parseColor("#000000"));
+                        binding.txtParticipants.setTextColor(Color.parseColor("#000000"));
+                        binding.txtPrice.setTextColor(Color.parseColor("#000000"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Unable to connect to the dictionary!" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            });
+
+            requestQueue.add(stringRequest);
+        }
 
     private void signOut() {
 
@@ -107,8 +135,6 @@ public class ActivityCamera extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(actionBarDrawerToggle.onOptionsItemSelected(item)){
@@ -116,4 +142,5 @@ public class ActivityCamera extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

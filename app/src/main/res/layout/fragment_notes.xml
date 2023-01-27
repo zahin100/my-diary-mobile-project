@@ -29,12 +29,12 @@
         android:textAlignment="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:text="Add Note"
         android:layout_marginTop="250dp"
-        />
+        android:background="#6284DC"
+        android:text="Add Note" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerView"

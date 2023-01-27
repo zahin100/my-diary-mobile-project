@@ -1,5 +1,6 @@
 package com.example.mobileproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class NotesFragment extends Fragment {
     Button button;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,16 +60,28 @@ public class NotesFragment extends Fragment {
 
         noteClasses = new ArrayList<>();
 
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Date currentTime = Calendar.getInstance().getTime();
-                String date = currentTime.toString().trim();
-                NoteClass.getInstance().setDate(date);
+                if(note.getText().toString().equals("")){
 
-                sendData();
-                retrieveData();
+                    Toast.makeText(getContext(),"Note cannot be empty!",Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Date currentTime = Calendar.getInstance().getTime();
+                    String date = currentTime.toString().trim();
+                    NoteClass.getInstance().setDate(date);
+
+                    retrieveData();
+                    sendData();
+                    retrieveData();
+                }
+
+
 
             }
         });
@@ -81,7 +95,7 @@ public class NotesFragment extends Fragment {
     public void sendData(){
 
 
-        String url = "http://192.168.8.122/MobileProject/Database.php";
+        String url = "http://192.168.1.115/MobileProject/Database.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -117,6 +131,8 @@ public class NotesFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
+
+
                 String notes = note.getText().toString();
                 String date = NoteClass.getInstance().getDate();
 
@@ -135,12 +151,12 @@ public class NotesFragment extends Fragment {
         };
 
         requestQueue.add(request);
-
+        retrieveData();
     }
 
     public void retrieveData() {
 
-        String url = "http://192.168.8.122/MobileProject/getNotes.php";
+        String url = "http://192.168.1.115/MobileProject/getNotes.php";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -149,7 +165,9 @@ public class NotesFragment extends Fragment {
                 try {
 
                     Log.e("anyText", response);
-
+                    //creating adapter object and setting it to recyclerview
+                    NoteAdapter adapter = new NoteAdapter(getContext(), noteClasses);
+                    recyclerView.setAdapter(adapter);
                     //converting the string to json array object
                     JSONArray array = new JSONArray(response);
                     noteClasses.clear();
@@ -171,10 +189,8 @@ public class NotesFragment extends Fragment {
 
                         }
 
-                        //creating adapter object and setting it to recyclerview
-                    NoteAdapter adapter = new NoteAdapter(getContext(), noteClasses);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+
+                    adapter.notifyItemInserted(noteClasses.size());
 
 
 
